@@ -51,7 +51,7 @@ Cushionly features a full-stack authentication system built with FastAPI, Postgr
 
 [User Login] ---> [Password verified] ---> [JWT access token issued]
 
-[User Access /auth/profile] ---> [JWT validated] ---> [User info returned if authenticated]
+[User Access /auth/profile] ---> [JWT validated] ---> [User info returned if authenticated]```
 
 ---
 
