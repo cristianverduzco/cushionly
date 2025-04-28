@@ -58,12 +58,18 @@ Cushionly features a full-stack authentication system built with FastAPI, Postgr
 ---
 
 ### 🗺 Roadmap
-- [ x ] User authentication (signup/login/logout)
-- [ x ] JWT-Protected API endpoints
-- [ x ] PostgreSQL database integration
-- [ ] Basic budget/expense management
-- [ ] Stripe subscription integration
-- [ ] Advanced analytics (category breakdowns, monthly reports)
-- [ ] Email notifications for budget summaries
-- [ ] Mobile PWA version
-- [ ] Admin dashboard for managing users and plans
+
+#### ✅ Completed
+- ✅ User authentication (signup/login/logout)
+- ✅ JWT-Protected API endpoints
+- ✅ PostgreSQL database integration
+
+#### 🚧 In Progress
+- 🚧 Basic budget/expense management
+
+#### 🔜 Planned
+- ⬜ Stripe subscription integration
+- ⬜ Advanced analytics (category breakdowns, monthly reports)
+- ⬜ Email notifications for budget summaries
+- ⬜ Mobile PWA version
+- ⬜ Admin dashboard for managing users and plans
