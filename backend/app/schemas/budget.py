@@ -20,17 +20,21 @@ class ExpenseOut(ExpenseBase):
 
 # --- Budgets ---
 
-class BudgetOut(BaseModel):
-    id: int
+class BudgetBase(BaseModel):
     name: str
     total_amount: float
-    total_spent: float
-    remaining_amount: float
+
+class BudgetCreate(BudgetBase):
+    pass
+
+class BudgetOut(BudgetBase):
+    id: int
+    created_at: datetime
     expenses: List[ExpenseOut] = []
+
+    # Auto-calculated fields
+    total_spent: float
+    remaining: float
 
     class Config:
         from_attributes = True
-
-class BudgetCreate(BaseModel):
-    name: str
-    total_amount: float

@@ -40,24 +40,25 @@ def create_budget(budget: BudgetCreate, db: Session = Depends(get_db), current_u
     )
 
 @router.get("/", response_model=List[BudgetOut])
-def get_budgets(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    budgets = db.query(Budget).filter(Budget.owner_id == current_user.id).all()
+def get_budgets(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    budgets = (
+        db.query(Budget)
+        .filter(Budget.owner_id == current_user.id)
+        .order_by(Budget.created_at.desc())
+        .all()
+    )
 
-    budget_list = []
+    # Add computed fields
     for budget in budgets:
-        total_spent = sum(expense.amount for expense in budget.expenses)
-        remaining_amount = budget.total_amount - total_spent
+        total_spent = sum(exp.amount for exp in budget.expenses)
+        budget.total_spent = total_spent
+        budget.remaining = budget.total_amount - total_spent
 
-        budget_list.append(BudgetOut(
-            id=budget.id,
-            name=budget.name,
-            total_amount=budget.total_amount,
-            total_spent=total_spent,
-            remaining_amount=remaining_amount,
-            expenses=budget.expenses
-        ))
+    return budgets
 
-    return budget_list
 
 @router.post("/{budget_id}/expenses", response_model=ExpenseOut)
 def add_expense(budget_id: int, expense: ExpenseCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):

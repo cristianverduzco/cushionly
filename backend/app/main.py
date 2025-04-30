@@ -1,18 +1,17 @@
 from fastapi import FastAPI
-from app.routes import auth
+
 from app.core.database import engine, Base
-from app.models import user
-from app.routes import auth, budget
+from app.models import user, budget, expense  # Ensure all models are imported
+from app.routes import auth, budget as budget_routes
 
 app = FastAPI()
 
-# Create database tables (for dev purposes only)
+# 👇 Create all tables at startup (for development only)
 Base.metadata.create_all(bind=engine)
 
-# Include your routes
+# 👇 Register routers
 app.include_router(auth.router)
-app.include_router(budget.router)
-
+app.include_router(budget_routes.router)
 
 @app.get("/")
 def read_root():
